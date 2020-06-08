@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Questionnaireslist</title>
+    
+ 
+</head>
+<body>
+	<div class="col-md-4">
+		<h1>Questionnaires</h1>
+	</div>
+	<div class="col-md-4">
+		
+	</div>
+	
+    
+    <div style="padding:0 20px">
+    <table class="table table-striped">
+		<tr>
+
+		    <th>titre</th>
+		    <th>date</th>
+		</tr>  
+    	<tr th:each = "Questionnaire : ${Questionnaire}">
+    		<td th:text="${Questionnaire.titre}"></td>
+    		<td th:text="${Questionnaire.date}"></td>
+    		
+    		<td>
+				<span th:each="Questions,iterStat : ${Questionnaire.Questionss}">
+					<span th:text="${Questions.libelle}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>    		
+    		</td>
+    		<td>
+    			<a th:href="@{/addQuestionnaireQuestions/{id}(id=${Questionnaire.id_questionnaire })}" class="btn btn-success btn-xs">Add Questions</a>
+    			<a th:href="@{/delete/{id}(id=${Questionnaire.id_questionnaire })}" class="btn btn-danger btn-xs">Delete</a>
+    		</td>
+    	</tr>
+    </table>
+    <a href="/add" class="btn btn-success">Add Questionnaire</a>
+	</div>    
+</body>
+</html>

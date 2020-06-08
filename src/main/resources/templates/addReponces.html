@@ -1,0 +1,46 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>add Question</title>
+</head>
+<body>
+<form th:action="@{/User/{id}/Reponses(id=${User.id_User})}" th:object="${Questions}" method="POST">
+	   
+	Nom: <b th:text="${User.nom_User}" /> <br/>  
+<p>libelle:<textarea th:field="*{libelle}" pattern="[a-z A-Z]*" >
+<span 
+th:errors="*{libelle}"/></textarea>  </p>
+
+
+
+
+
+<p>type de question
+ <select th:field="*{t.id_type}" >
+                      
+                      
+    
+                         <option th:each="t:${Type}"
+                            th:value="${t.id_type}"
+                            th:utext="${t.nom_type}"/>
+                  </select><span 
+th:errors="*{t.id_type}"/></p>
+
+<p>categorie de question
+
+ <select th:field="*{c.id_categorie}" >
+                      
+                      
+    
+                         <option th:each="c:${Categorie}"
+                            th:value="${c.id_categorie}"
+                            th:utext="${c.nom_categorie}"/>
+                  </select><span 
+th:errors="*{c.id_categorie}"/></p>
+<p><input type="submit" value="save"/></p>
+</form>
+</body>
+</html>

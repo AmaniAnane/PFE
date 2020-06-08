@@ -1,0 +1,70 @@
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+	
+<form th:action="@{/User/Reponses/}" th:object="${Reponse}" method="GET" enctype="multipart/form-data" >
+	
+	
+		 
+	<div id="outer">
+		 	<div id="header">
+			Nom: <b th:text="${User.id_User}"   /> <br/>
+			</div>
+<div id="header">
+			Quitionnaire: <b th:text="${Questionnaire.id_questionnaire}"   /> <br/>
+			</div>
+  
+    
+		
+			
+
+	   
+	   <table>
+	   <tr > <th>id_question</th><th>Questions</th><th>Reponses</th></tr>
+	  
+	 
+	 <td th:text="${Questions.id_question}"  />
+	   <td th:text="${Questions.libelle}"/>
+	    
+	   <td>
+	    <table>
+	     <tr><th></th><th>Reponses</th></tr>
+	    <tr th:each="Choixreponse :${Questions.Choixreponse}">
+	    
+	    
+	   <td> <input  class="form-control" type="checkbox" name="ChoixreponseId" th:value="${Choixreponse.id_choix}"  >
+	  
+	    <P th:text="${Choixreponse.choix}"/>
+	   </td>
+	     </tr>
+	     
+	     
+	  
+	   </table>
+	   </td>
+	   
+	   </tr>
+		
+	 
+	 
+	 </table>
+	   
+	   
+		 
+
+  
+			<input type="submit" class="btn btn-success" value="envoiyer"/>
+  </div>
+
+</form>
+</body>
+</html>
+
+

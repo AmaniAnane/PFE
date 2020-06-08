@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Profile User</title>
+</head>
+<body>
+<form th:action="@{/User/modifier/}" th:object="${User}" method="POST">
+
+<p> Id_User <input type="text" th:field="*{id_User}"/> <span th:errors="*{id_User}"/> </p>
+<p> nom_User <input type="text" th:field="*{nom_User}"/> <span th:errors="*{nom_User}"/> </p>
+<p> prenom_User <input type="text" th:field="*{prenom_User}"/> <span th:errors="*{prenom_User}"/> </p>
+<p> email_User <input type="text" th:field="*{email_User}"/> <span th:errors="*{email_User}"/> </p>
+<p> Telephone <input type="text" th:field="*{telephon}"/> <span th:errors="*{telephon}"/> </p>
+<p> login_User <input type="text" th:field="*{login_User}"/> <span th:errors="*{login_User}"/> </p>
+
+
+
+<p> <input type="submit" value="Update"/> <p>
+</form>
+</body>
+</html>

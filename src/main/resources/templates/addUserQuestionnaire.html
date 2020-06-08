@@ -1,0 +1,73 @@
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+	
+<form th:action="@{/User/{id}/Questionnaires(id=${User.id_User})}" method="get" enctype="multipart/form-data" >
+	
+	
+		 
+	<div id="outer">
+		 	<div id="header">
+			Nom: <b th:text="${User.nom_User}" /> <br/>
+			</div>
+
+  
+    
+		<div id="lpane">
+				<span th:each="Questionnaire : ${User.Questionnaires}">
+				<h4 class="card-title">	Questionnaire<span th:text="${Questionnaire.id_questionnaire}" /><br/>
+					<span th:each="Questions :${Questionnaire.Questionss}" >
+					<br/>&nbsp;&nbsp;<span th:text="${Questions.libelle}" /><br/>
+					
+					</span>
+				</span>
+				
+	    </div>
+			
+		<div id="rpane">
+			
+			
+	<table> 
+      <tr>
+	 <th>ID</th><th>Titre</th> <th> liste des question</th><th></th></tr>
+	   <tr th:each="Questionnaire : ${Questionnaires}" >
+	   <td>
+		<input class="form-control" type="radio" name="QuestionnaireId" th:value="${Questionnaire.id_questionnaire}"/>
+	 </td>
+	   <td th:text="${Questionnaire.id_questionnaire}" />
+	   <td th:text="${Questionnaire.titre}"/>
+	   <Td>
+	   <table>
+	   <tr><th>ID_Qustions</th><th>Questions</th> </tr>
+	   <tr th:each="Questions :${Questionnaire.Questionss}">
+	   <td th:text="${Questions.libelle}"/>
+	   </tr>
+	   </table>
+	   </Td>
+	   
+	 
+		
+	 </tr>
+</table>
+			
+			
+
+			 
+
+  
+			<input type="submit" class="btn btn-success" value="Add Questionnaire"/>
+  </div>
+</div>
+
+
+</form>
+
+</body>
+</html>

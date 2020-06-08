@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+	
+
+	
+	
+		 
+	<div id="outer">
+		 	<div id="header">
+			Nom: <b th:text="${User.id_User}"   /> <br/>
+			</div>
+
+  
+    
+		
+			
+		<div id="rpane">
+			
+			
+	<table> 
+      <tr>
+	 <th>Titre</th><th></th> <th> liste des question</th><th>Action</th></tr>
+	 
+	   
+	   
+	   <td th:text="${Questionnaire.titre}" class="form-control" name="QuestionnaireId" th:value="${Questionnaire.id_questionnaire}"/>
+	  
+	   <Td>
+	   
+	   
+	   <table>
+	   <tr ><th>Questions</th></tr>
+	   <tr th:each="Questions :${Questionnaire.Questionss}">
+	 
+	 <td th:text="${Questions.id_question}"  />
+	   <td th:text="${Questions.libelle}"/>
+	    
+	<td class="text-center">
+		<a  class='btn btn-info btn-xs' th:href="@{/User/Questions/(n=${Questions.id_question})}"th:text="Reponder"><span class="glyphicon glyphicon-edit"></span>Reponder</a>
+	</td>
+	   
+	   </tr>
+		
+	 
+	 
+	 </table>
+	   
+	   
+	   </Td>
+	   </tr>
+	 
+</table>		 
+
+  
+  </div>
+</div>
+
+</body>
+</html>
+
+

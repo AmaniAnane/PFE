@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Developer</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />	
+</head>
+<body>
+	<h1>Add course</h1>
+	
+    		
+	<form th:action="@{/Questionnaire/{id}/Questionss(id=${Questionnaire.id_questionnaire})}" method="get" enctype="multipart/form-data" >
+	<div class="col-md-4">
+		<div class="panel panel-default">
+		 <div class="panel-heading">Student info</div>
+		 <div class="panel-body" style="padding-left: 5px;">
+			Titre: <b th:text="${Questionnaire.titre}" /> <br/>
+			Date: <span th:text="${Questionnaire.date}" /><br/>
+			
+			<br/>Questions:
+				<span th:each="Questions : ${Questionnaire.Questionss}">
+					<br/>&nbsp;&nbsp;<span th:text="${Questions.libelle}" />
+				</span>
+				<br/>
+				</div>
+		</div>	
+			
+			
+			
+			<div class="col-md-6">
+			<table>
+			<tr>
+			<th></th><th> id-Questions</th><th> Questions</th><th>Categories-Questions</th>
+			</tr>
+			<tr th:each="Questions : ${Questionss}">
+			<td><input class="form-control" type="radio" name="QuestionsId" th:value="${Questions.id_question}"/></td>
+			<td th:text="${Questions.id_question}"/>
+			<td th:text="${Questions.libelle}"/>
+			<span th:each="Categorie: ${Questions.getC()}">
+			<td th:text="${Categorie.nom_categorie}"/>
+			
+			</table>
+			
+					
+			</div>
+			
+			
+			
+			
+			
+			
+			<input type="submit" class="btn btn-success" value="Add Questions"/>
+	</div>
+	</form>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>
