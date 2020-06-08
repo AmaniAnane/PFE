@@ -66,7 +66,13 @@ public class UserControlleur {
 	 }
 	 
 	 
-	 
+	 //updateUser
+	 @RequestMapping("User/update")
+	 public String modifUser(Model model,int num) {
+		 User p=UserRespository.findById(num).get();
+		 model.addAttribute("User",p);
+		 return "modifUser";
+	 }
 	 @RequestMapping(value="/User/modifier",method=RequestMethod.POST)
 	 public String updateUser(@Valid @ModelAttribute User p,BindingResult bindingResult) {
 		 if(bindingResult.hasErrors()) {
