@@ -33,7 +33,7 @@ private TypeRespository TypeRespository;
 private CategorieRespository CategorieRespository;
 
 
-	 @RequestMapping(value= {"Questions/add"} ,  method = RequestMethod.GET)
+	 @RequestMapping(value= {"/Questions/add"} ,  method = RequestMethod.GET)
 	 public String addQuestions(Model model) {
 		 model.addAttribute("Questions",new Questions() );
 		 
@@ -72,6 +72,10 @@ private CategorieRespository CategorieRespository;
 		 public String modifQuestions(Model model,int num) {
 			 Questions q=questionsRespository.findById(num).get();
 			 model.addAttribute("Questions",q);
+			  ArrayList<Categorie> Categorie = (ArrayList<Categorie>) CategorieRespository.findAll();
+			  model.addAttribute("Categorie", Categorie);
+			 
+			
 			 return "modifQuestions";
 		 }
 		 @RequestMapping(value="/Questions/modifier",method=RequestMethod.POST)

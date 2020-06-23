@@ -20,7 +20,37 @@ public class Choixreponse implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_choix ;
 	private String choix ;
-	private Integer bonne_reponse=0 ;
+	private   String bonne_reponse ;
+
+public void setBonne_reponse(String bonne_reponse) {
+		this.bonne_reponse = bonne_reponse;
+	}
+
+
+
+
+
+
+public String getBonne_reponse() {
+		return bonne_reponse;
+	}
+
+
+
+
+
+
+	public Set<Reponse> getReponse() {
+		return Reponse;
+	}
+
+
+
+	public void setReponse(Set<Reponse> reponse) {
+		Reponse = reponse;
+	}
+
+
 
 @Override
 	public String toString() {
@@ -53,19 +83,6 @@ public int getId_choix() {
 	public void setChoix(String choix) {
 		this.choix = choix;
 	}
-
-
-	public Integer getBonne_reponse() {
-		return bonne_reponse;
-	}
-
-
-
-	public void setBonne_reponse(Integer bonne_reponse) {
-		this.bonne_reponse = bonne_reponse;
-	}
-
-
 
 
 

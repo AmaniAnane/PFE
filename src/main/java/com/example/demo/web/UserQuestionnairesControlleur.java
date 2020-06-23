@@ -3,6 +3,7 @@ package com.example.demo.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import com.example.demo.dao.QuestionsRespository;
 import com.example.demo.dao.UserRespository;
 import com.example.demo.entities.Questionnaire;
 import com.example.demo.entities.User;
-
+@Controller
 public class UserQuestionnairesControlleur {
 
 
@@ -50,6 +51,10 @@ private QuestionnaireRespository QuestionnaireRespository;
 		model.addAttribute("User", UserRespository.findById(UserId).get());
     	return "addUserQuestionnaire";
     }
+ 
+ 
+ 
+ 
  @RequestMapping(value ="ReponduUser/{id}", method = RequestMethod.GET)
  public String Repondu(@PathVariable("id") int UserId, Model model) {
 	 model.addAttribute("User", UserRespository.findById(UserId).get());

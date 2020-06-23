@@ -174,7 +174,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Liste des fonctions</h3>
+                <h3>Liste des types</h3>
               </div>
            <div class="title_right">
               <div class="col-md-5 col-sm-5 form-group pull-right top_search">
@@ -210,7 +210,7 @@
                       <thead>
                         <tr>
                          <th>ID</th>
-                          <th>Libelle</th>
+                          <th>Nom</th>
                           <th>Action</th>
                
                         </tr>
@@ -218,23 +218,21 @@
 
 
             
-	<tr th:each="a:${Fonction}">
-	<td th:text="${a.id_fonction}"/>
-	<td th:text="${a.libelle}"/>
+	<tr th:each="t:${Type}">
+	<td th:text="${t.id_type}"/>
+	<td th:text="${t.nom_type}"/>
 
 
                    <td >
 	                
-		              <a   class="btn btn-info btn-xs eBtn"  th:href="@{/Fonction/update(num=${a.id_fonction})}">           <i class="fa fa-pencil"></i>
+		              <a   class="btn btn-info btn-xs eBtn"  th:href="@{/Type/update(num=${t.id_type})}">           <i class="fa fa-pencil"></i>
                   </a>
 	                 
 	                 
-		             <a class="btn btn-danger btn-xs" th:href="@{/Fonction/delete(num=${a.id_fonction})}" >   <i class="fa fa-trash-o"></i></a>
+		             <a class="btn btn-danger btn-xs" th:href="@{/Type/delete(num=${t.id_type})}" >   <i class="fa fa-trash-o"></i></a>
 	                
                     
     	            
-                    
-                   
                   
 
                    </td>			
@@ -249,14 +247,7 @@
               </div>
 
 
-             
-     
-
-           
-           
-
-
-
+            
               
                <div class="modal" id="deconecter">
                 <div class="modal-dialog" role="document">

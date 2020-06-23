@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dao.TypeRespository;
+import com.example.demo.entities.Fonction;
 import com.example.demo.entities.Type;
 @Controller
 public class TypeControlleur {
@@ -39,7 +40,7 @@ private TypeRespository TypeRespository;
 		 
 		 }
 		 
-		 @RequestMapping("/Type/lister")
+		 @RequestMapping("Type/lister")
 		 public String listTypes(Model model)
 		 {
 			 model.addAttribute("Type", TypeRespository.findAll());
@@ -61,5 +62,14 @@ private TypeRespository TypeRespository;
 			 TypeRespository.saveAndFlush(p);
 			 return "redirect:/Type/lister";
 		 }
+		 
+		 
+		 @RequestMapping(value="/Type/delete",method=RequestMethod.GET)
+			public String deleteType(Type p, int num) {
+			 TypeRespository.deleteById(num);
+				
+				return "redirect:/Type/lister";
+			}
+		 
 		 
 }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +25,7 @@
 <body class="nav-md">
   <div class="container body">
     <div class="main_container">
-       <div class="col-md-3 left_col">
+  <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
      
 
@@ -111,6 +112,7 @@
             <!-- /menu footer buttons -->
           </div>
         </div>
+  
 
       <!-- top navigation -->
       <div class="top_nav">
@@ -181,7 +183,7 @@
                   </li>
                   <li class="nav-item">
                     <a class="dropdown-item">
-                      <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                      <span class="image"><img src="/images/img.jpg" alt="Profile Image" /></span>
                       <span>
                         <span>John Smith</span>
                         <span class="time">3 mins ago</span>
@@ -212,6 +214,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
+              <h3></h3>
             </div>
 
             <div class="title_right">
@@ -219,7 +222,8 @@
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Search for...">
                   <span class="input-group-btn">
-                     <a class="btn btn-secondary" type="button" href="/User/lister" ><img src="/images/list.png" style="float:left;width:42px;height:42px;" /></a>
+                    
+                     <a class="btn btn-secondary" type="button" href="/User/lister" ><img src="images/listg.pn" style="float:left;width:42px;height:42px;" /></a>
                   </span>
                 </div>
               </div>
@@ -231,104 +235,32 @@
             <div class="col-md-12 col-sm-12">
               <div class="x_panel">
                 <div class="x_title">
+                  <h2>Add Type </h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
-                          class="fa fa-wrench"></i></a>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="Fonction/add">Add User</a>
-                        
-                      </div>
-                    </li>
+               
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                   </ul>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                  <form th:action="@{/User/save}" th:object="${User}" method="POST" novalidate>
+                  
+                  <form th:action="@{/Type/save}" th:object="${Type}"  method="POST" novalidate>
+                  
                    
-                    <span class="section">Personal Info</span>
-                    <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Nom<span
-                          class="required">*</span></label>
+                 
+                     
+                             <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Type:<span
+                          class="required"></label>
                       <div class="col-md-6 col-sm-6">
-                        <input class="form-control" th:field="*{nom_User}" data-validate-length-range="6" data-validate-words="0" name="name"
-                           required="required" />
-                      </div>
-                    </div>
-                    
-
-                       <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Prenom<span
-                          class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" th:field="*{prenom_User}" data-validate-length-range="6" data-validate-words="0" name="name"
-                           required="required" />
-                      </div>
-                    </div>
-                        <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Login<span
-                          class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" th:field="*{login_User}" data-validate-length-range="6" data-validate-words="0" name="name"
-                           required="required" />
-                      </div>
-                    </div>
-                  
-                  <div class="field item form-group">
-                  <label class="col-form-label col-md-3 col-sm-3  label-align">Fonction<span
-                          class="required"></span></label>
-                 <div class="col-md-6 col-sm-6">
-                 <select th:field="*{u.id_fonction}" >
-                         <option th:each="f:${Fonction}"
-                            th:value="${f.id_fonction}"
-                            th:utext="${f.libelle}"/>
-                         </select><span th:errors="*{u.id_fonction}"/>
-                         </p>
-                         </div>
-                         </div>
-                  <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Administrateur<span
-                          class="required"></span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" type="checkbox" id="admin" name="gender" value="1" th:field="*{admin}">
-                       </div>
-                    </div>
-                  
-                    <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">email<span
-                          class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" th:field="*{email_User}" name="email"  required="required" type="email" /></div>
+                         <textarea class="form-control" th:field="*{nom_type}" data-validate-length-range="6" data-validate-words="0" name="name"
+                           required="required" ></textarea></div>
                     </div>
 
                 
-                 
-                    <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Password<span
-                          class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" type="password" th:field="*{pass_User}"name="password" data-validate-length="6,8"
-                          required='required' /></div>
-                    </div>
-                    <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Repeat password<span
-                          class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" type="password" name="password2" data-validate-linked='password'
-                          required='required' /></div>
-                    </div>
-                    <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">Telephone<span
-                          class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6">
-                        <input class="form-control" th:field="*{telephon}" type="tel" name="phone" required='required'
-                          data-validate-length-range="8,20" /></div>
-                    </div>
-                    
                     <div class="ln_solid">
                       <div class="form-group">
                         <div class="col-md-6 offset-md-3">
@@ -337,6 +269,7 @@
                         </div>
                       </div>
                     </div>
+                    
                   </form>
                 </div>
               </div>
@@ -402,3 +335,7 @@
 </body>
 
 </html>
+
+
+
+

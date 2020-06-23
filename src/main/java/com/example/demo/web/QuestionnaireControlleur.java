@@ -2,7 +2,9 @@ package com.example.demo.web;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ import com.example.demo.dao.QuestionsRespository;
 import com.example.demo.entities.Questionnaire;
 import com.example.demo.entities.Questions;
 
+
+@Controller
 public class QuestionnaireControlleur {
 	
 
@@ -35,19 +39,19 @@ private CategorieRespository CategorieRespository;
 	    	return "Questionnaires";
 	    }
 	
-	    @RequestMapping(value = "add")
+	    @RequestMapping(value = "/add")
 	    public String addStudent(Model model){
 	    	model.addAttribute("Questionnaire", new Questionnaire());
 	        return "addQuestionnaire";
 	    }	
 		
-	    @RequestMapping(value = "save", method = RequestMethod.POST)
+	    @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String save(Questionnaire Questionnaire){
 	    	QuestionnaireRespository.save(Questionnaire);
 	    	return "redirect:/Questionnaire";
 	    }
 	    
-	    @RequestMapping(value = "/delete/{id_questionnaire}", method = RequestMethod.GET)
+	    @RequestMapping(value ="/delete/{id_questionnaire}", method = RequestMethod.GET)
 	    public String editRemoveEmployee(@PathVariable("id_questionnaire") int questionnaireId, Model model) {
 	    	QuestionnaireRespository.deleteById(questionnaireId);
 	        return "redirect:/Questionnaire";
@@ -55,12 +59,12 @@ private CategorieRespository CategorieRespository;
 	 
 	 
 	 
-	 @RequestMapping(value = "addQuestionnaireQuestions/{id}", method = RequestMethod.GET)
+	 @RequestMapping(value = "/addQuestionnaireQuestions/{id}", method = RequestMethod.GET)
 	    public String addQuestions(@PathVariable("id") int questionnaireId, Model model){
-	    	model.addAttribute("Questionss", questionsRespository.findAll());
-	    	
-			model.addAttribute("Questionnaire", QuestionnaireRespository.findById(questionnaireId).get());
-			model.addAttribute("Categorie",CategorieRespository.findAll());
+	  
+	    	Questionnaire q=QuestionnaireRespository.findById(questionnaireId).get();
+			model.addAttribute("Questionnaire", q);
+			model.addAttribute("question",questionsRespository.findAll());
 			return "addQuestionnaireQuestions";
 	    }
 	    

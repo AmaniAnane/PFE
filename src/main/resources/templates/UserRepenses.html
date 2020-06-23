@@ -7,37 +7,41 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 </head>
-<body>
-	
-
-	
-	
-		 
+<body>	 
 	<div id="outer">
 		 	<div id="header">
 			Nom: <b th:text="${User.nom_User}" /> <br/>
-			</div>
-
- 		
-	<table> 
-      <tr>
-	 <th>Titre</th> <th> liste des reponses</th><th></th></tr>
-	   <tr th:each="Reponse : ${User.Reponse}" >
-	   
-	   
-	
-	   <Td>
-	   
+			</div>   
 	   
 	   <table>
-	   <tr ><th>Questions</th></tr>
+	     <tr><th>Questionna</th><th>Questions</th><th>Reponse</th></tr>
+	   <tr th:each="Reponse : ${User.Reponse}">
 	   
-	 
-	
-	   <td th:text="${Reponse.Questions}"/>
-	    
-
-	   <td th:text="${Reponse.Choixreponse}"/>
+	   <td>
+	   <ul th:each="questionnaire :${Reponse.questionnaire}" >
+                         <li>
+                         <span th:text="${questionnaire.titre}" />
+                         </li>
+                         
+                         </ul>
+	   </td>
+	   <td>
+	 <table>
+	<tr th:each="Questions: ${Reponse.Questions}" >
+	   <th th:text="${Questions.libelle}"/>
+	   </tr>
+	    </table>
+</td>  <td>
+	   <ul th:each="Choixreponse :${Reponse.Choixreponse}" >
+                         <li>
+                         <span th:text="${Choixreponse.choix}" />
+                         </li>
+                         <li>
+                         <span th:text="${Choixreponse.bonne_reponse}" />
+                         
+                         </li>
+                         </ul>
+	    </td>
 	   </tr>
 		
 	 
@@ -45,10 +49,9 @@
 	 </table>
 	     
 	   
-	   </Td>
-	   </tr>
+	  
 	 
-</table>
+
  
 </div>
 
