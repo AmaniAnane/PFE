@@ -18,6 +18,20 @@ public class Fonction implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_fonction;
+private String description;
+	public String getDescription() {
+	return description;
+}
+
+
+
+
+public void setDescription(String description) {
+	this.description = description;
+}
+
+
+
 
 	public Fonction(int id_fonction, String libelle) {
 		super();

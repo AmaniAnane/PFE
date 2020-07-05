@@ -1,5 +1,8 @@
 package com.example.demo.web;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
@@ -16,9 +19,11 @@ import com.example.demo.dao.CategorieRespository;
 import com.example.demo.dao.QuestionnaireRespository;
 import com.example.demo.dao.QuestionsRespository;
 import com.example.demo.dao.TypeRespository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Questions;
 import com.example.demo.entities.Type;
+import com.example.demo.entities.User;
 @Controller
 public class QuestionsControlleur {
 
@@ -31,10 +36,16 @@ private TypeRespository TypeRespository;
 @Autowired
 
 private CategorieRespository CategorieRespository;
-
+@Autowired
+private UserRepository UserRespository;
 
 	 @RequestMapping(value= {"/Questions/add"} ,  method = RequestMethod.GET)
-	 public String addQuestions(Model model) {
+	 public String addQuestions(Model model ,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
+		 
 		 model.addAttribute("Questions",new Questions() );
 		 
 		 
@@ -54,6 +65,10 @@ private CategorieRespository CategorieRespository;
 			if (bindingResult.hasErrors()) {
 			 return "addQuestions";
 			 }
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+	    	   LocalDateTime now = LocalDateTime.now();  
+	    	   String date =dtf.format(now);
+	    	   q.setDate(date);
 			questionsRespository.save(q);
 			
 			return "redirect:/Questions/lister";
@@ -61,15 +76,22 @@ private CategorieRespository CategorieRespository;
 		 }
 		 
 		 @RequestMapping("/Questions/lister")
-		 public String listQuestions(Model model)
+		 public String listQuestions(Model model ,Principal principal)
 		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 			 model.addAttribute("Questions", questionsRespository.findAll());
 			 return "Questions";
 		 }
 		 
 		
 		 @RequestMapping("Questions/update")
-		 public String modifQuestions(Model model,int num) {
+		 public String modifQuestions(Model model,int num,Principal principal)
+		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 			 Questions q=questionsRespository.findById(num).get();
 			 model.addAttribute("Questions",q);
 			  ArrayList<Categorie> Categorie = (ArrayList<Categorie>) CategorieRespository.findAll();

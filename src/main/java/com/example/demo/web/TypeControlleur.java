@@ -1,5 +1,7 @@
 package com.example.demo.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dao.TypeRespository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.entities.Fonction;
 import com.example.demo.entities.Type;
+import com.example.demo.entities.User;
 @Controller
 public class TypeControlleur {
 	
@@ -20,9 +24,15 @@ public class TypeControlleur {
 
 @Autowired
 private TypeRespository TypeRespository;
+@Autowired
+private UserRepository UserRespository;
 	 //Type
 	 @RequestMapping("/Type/add")
-	 public String AddType(Model model) {
+	 public String AddType(Model model,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
 		 model.addAttribute("Type",new Type() );
 		 
 		 return "addType";
@@ -41,15 +51,22 @@ private TypeRespository TypeRespository;
 		 }
 		 
 		 @RequestMapping("Type/lister")
-		 public String listTypes(Model model)
+		 public String listTypes(Model model,Principal principal)
 		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 			 model.addAttribute("Type", TypeRespository.findAll());
 			 return "Types";
 		 }
 		 
 		
 		 @RequestMapping("Type/update")
-		 public String modifType(Model model,int num) {
+		 public String modifType(Model model,int num ,Principal principal)
+		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 			 Type p=TypeRespository.findById(num).get();
 			 model.addAttribute("Type",p);
 			 return "modifType";

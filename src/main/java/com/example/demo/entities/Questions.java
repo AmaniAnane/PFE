@@ -31,7 +31,7 @@ public class Questions implements Serializable{
 	public void setQuestionnaire(Set<Questionnaire> questionnaire) {
 		Questionnaire = questionnaire;
 	}
-	private Date date;
+	private String date;
 /*	@Temporal(DATE)
 	@DateTimeFormat (pattern="dd-MMM-YYYY")
 	
@@ -39,8 +39,7 @@ public class Questions implements Serializable{
 
 		@Override
 	public String toString() {
-		return "Questions [id_question=" + id_question + ", libelle=" + libelle + ", date=" + date + ", c=" + c + ", t="
-				+ t + "]";
+		return libelle;
 	}
 
 		public int getId_question() {
@@ -62,11 +61,13 @@ public class Questions implements Serializable{
 		
 
 
-		public Date getDate() {
+		
+
+		public String getDate() {
 			return date;
 		}
 
-		public void setDate(Date date) {
+		public void setDate(String date) {
 			this.date = date;
 		}
 

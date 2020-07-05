@@ -120,8 +120,8 @@
             <!-- /menu footer buttons -->
           </div>
         </div>
-        
-      <!-- top navigation -->
+
+        <!-- top navigation -->
         <div class="top_nav">
             <div class="nav_menu">
                 <div class="nav toggle">
@@ -131,54 +131,42 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <span th:utext="${#request.userPrincipal.name}"></span>
-                       <small th:each="r:${user.roles}" th:utext="${r.name}"></small>
+                     ...
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                      
                      
                   
-                      <a class="dropdown-item"  href="/logout" ><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                   
+                      <a class="dropdown-item"  data-toggle="modal" data-target="#deconecter"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
   
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      
-                        <i class="fa fa-bell"></i>
-                          
-                     
+                      <i class="fa fa-envelope-o"></i>
+                      <span class="badge bg-green">6</span>
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                        <span   >
-                        
-                            </span>
-                      <li class="nav-item" th:each="c:${Questionnaires}">
+                      <li class="nav-item">
                         <a class="dropdown-item">
                           <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        
-                        
-                          <span class="message">
-                            <a   th:href="@{/User/Questionnaire/(n=${c.id_questionnaire})}"th:text="${c.titre}"></a>
+                          <span>
+                            <span>John Smith</span>
+                            <span class="time">3 mins ago</span>
                           </span>
-                         
-                          
-                        
-                          
-                          
+                          <span class="message">
+                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
                         </a>
                       </li>
                   
                    
                     </ul>
                   </li>
-                  
                 </ul>
               </nav>
             </div>
           </div>
-      
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -186,19 +174,26 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3 >Liste des catégories</h3>
+                <h3>Liste des fonctions</h3>
               </div>
            <div class="title_right">
               <div class="col-md-5 col-sm-5 form-group pull-right top_search">
                 <div class="input-group">
                   
                   <span class="input-group-btn">
-                     <a class="btn btn-secondary" type="button" href="/Questions/lister" ><img src="/images/123.jpg"  style="float:left;width:42px;height:42px;" /></a>
+                    
+                     <a class="btn btn-secondary" type="button" href="/User/add" ><img src="/images/list.png" style="float:left;width:42px;height:42px;" /></a>
+                  <a class="btn btn-secondary" type="button" href="/Questions/lister" ><img src="/images/123.jpg"  style="float:left;width:42px;height:42px;" /></a>
                   </span>
                 </div>
               </div>
             </div>
             </div>
+            
+             
+            
+            
+ 
           </div>
             <div class="clearfix"></div>
 
@@ -215,30 +210,20 @@
                       <thead>
                         <tr>
                          <th>ID</th>
-                          <th>Nom de Catégorie</th>
+                          <th>Libelle</th>
                           <th>Action</th>
                
                         </tr>
                       </thead>
-                            
-	<tr th:each="a:${Categorie}">
-	<td th:text="${a.id_categorie}"/>
-	<td th:text="${a.nom_categorie}"/>
 
 
-                   <td>
-	                
-		              <a   class="btn btn-info btn-xs eBtn"  th:href="@{/Categorie/update(num=${a.id_categorie})}">           <i class="fa fa-pencil"></i>
-                  </a>
-	                 
+            
+	<tr th:each="a:${user}">
+	<td th:text="${a.id}"/>
+	<td th:text="${a.username}"/>
 
-                    
-    	            
-                    
-                   
-                  
 
-                   </td>			
+               		
 	               </tr>
                       </tbody>
                     </table>
@@ -248,6 +233,16 @@
             </div>
                 </div>
               </div>
+
+
+             
+     
+
+           
+           
+
+
+
               
                <div class="modal" id="deconecter">
                 <div class="modal-dialog" role="document">

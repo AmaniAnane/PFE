@@ -1,5 +1,6 @@
 package com.example.demo.web;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dao.ChoixRespositor;
 import com.example.demo.dao.QuestionsRespository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.entities.Categorie;
 import com.example.demo.entities.Choixreponse;
 import com.example.demo.entities.Questionnaire;
@@ -28,6 +30,8 @@ public class ChoixreponseControlleur {
 
 	@Autowired
 	private ChoixRespositor choixRespositor;
+	@Autowired
+	private UserRepository UserRespository;
 	
 	/*
 	 @RequestMapping(value="/ChoixReponseQuestion/", method = RequestMethod.GET)
@@ -41,7 +45,11 @@ public class ChoixreponseControlleur {
 	 }*/
 	 
 	 @RequestMapping(value="Questions/choixReponse", method = RequestMethod.GET)
-	 public String crationChoixReponce(Model model, int num) {
+	 public String crationChoixReponce(Model model, int num,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
 			
 		 Questions q=questionsRespository.findById(num).get();
 		 model.addAttribute("Questions",q);
@@ -83,8 +91,11 @@ public class ChoixreponseControlleur {
 		}  */
 	 
 	 @RequestMapping(value="Choixreponse/update/", method=RequestMethod.GET)
-	 public String modifQuestions(Model model,int num, @RequestParam int id)
-			 {
+	 public String modifQuestions(Model model,int num, @RequestParam int id,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
 		 Choixreponse ch=choixRespositor.findById(num).get();
 		 Questions q=questionsRespository.findById(id).get();
 		 model.addAttribute("Choixreponse",ch);

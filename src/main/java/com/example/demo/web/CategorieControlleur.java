@@ -1,5 +1,7 @@
 package com.example.demo.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dao.CategorieRespository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.entities.Categorie;
+import com.example.demo.entities.User;
 @Controller
 public class CategorieControlleur {
 
@@ -19,9 +23,14 @@ public class CategorieControlleur {
 @Autowired
 
 private CategorieRespository CategorieRespository;
-	 
+@Autowired
+private UserRepository UserRespository;
 	 @RequestMapping("/Categorie/add")
-	 public String AddCategorie(Model model) {
+	 public String AddCategorie(Model model,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
 		 model.addAttribute("Categorie",new Categorie() );
 		 
 		 return "AddCategorie";
@@ -44,8 +53,11 @@ private CategorieRespository CategorieRespository;
 		 
 		 
 		 @RequestMapping("/Categorie/lister")
-		 public String listCategorie(Model model)
+		 public String listCategorie(Model model,Principal principal)
 		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 			 model.addAttribute("Categorie", CategorieRespository.findAll());
 			 return "Categorie";
 		 }
@@ -53,7 +65,11 @@ private CategorieRespository CategorieRespository;
 		 
 		
 		 @RequestMapping("Categorie/update")
-		 public String modifCategorie(Model model,int num) {
+		 public String modifCategorie(Model model,int num,Principal principal)
+		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 			 Categorie a=CategorieRespository.findById(num).get();
 			 model.addAttribute("Categorie",a);
 			 return "modifCategorie";

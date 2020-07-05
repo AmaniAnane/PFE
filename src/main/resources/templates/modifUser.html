@@ -112,7 +112,7 @@
           </div>
         </div>
 
-        <!-- top navigation -->
+       <!-- top navigation -->
         <div class="top_nav">
             <div class="nav_menu">
                 <div class="nav toggle">
@@ -122,43 +122,55 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                     ...
+                      <span th:utext="${#request.userPrincipal.name}"></span>
+                       <small th:each="r:${user.roles}" th:utext="${r.name}"></small>
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                      
                      
                   
-                      <a class="dropdown-item"  data-toggle="modal" data-target="#deconecter"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                      <a class="dropdown-item"  href="/logout" ><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                   
                     </div>
                   </li>
   
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
+                      
+                        <i class="fa fa-bell"></i>
+                          
+                     
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
+                        <span   >
+                        
+                            </span>
+                      <li class="nav-item" th:each="c:${Questionnaires}">
                         <a class="dropdown-item">
                           <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
+                        
+                        
                           <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                            <a   th:href="@{/User/Questionnaire/(n=${c.id_questionnaire})}"th:text="${c.titre}"></a>
                           </span>
+                         
+                          
+                        
+                          
+                          
                         </a>
                       </li>
                   
                    
                     </ul>
                   </li>
+                  
                 </ul>
               </nav>
             </div>
           </div>
-      <!-- /top navigation -->
+        <!-- /top navigation -->
+
 
       <!-- page content -->
       <div class="right_col" role="main">
@@ -166,6 +178,14 @@
           <div class="page-title">
             <div class="title_left">
             </div>
+
+            
+            
+            
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Users <small>Modifier</small></h3>
+              </div>
 
             <div class="title_right">
               <div class="col-md-5 col-sm-5 form-group pull-right top_search">
@@ -176,6 +196,7 @@
                   </span>
                 </div>
               </div>
+            </div>
             </div>
           </div>
           <div class="clearfix"></div>
@@ -198,14 +219,14 @@
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                   </ul>
-                  <div class="clearfix"></div>
+                
                 </div>
                 <div class="x_content">
                   <form th:action="@{/User/modifier}"  method="POST"  th:object="${User} "novalidate>
-                    <p>modification user</p>
+                    
                     
                 
-                    <span class="section">Personal Info</span>
+                    <span class="section">Modiffer <sapan th:text="${User.username}" /></span>
                     
                     
                     <div class="field item form-group">
@@ -237,7 +258,7 @@
                       <label class="col-form-label col-md-3 col-sm-3  label-align">Login<span
                           class="required">*</span></label>
                       <div class="col-md-6 col-sm-6">
-                        <input class="form-control" th:field="*{login_User}" data-validate-length-range="6" data-validate-words="0" name="name"
+                        <input class="form-control" th:field="*{username}" data-validate-length-range="6" data-validate-words="0" name="name"
                            required="required" />
                       </div>
                     </div>
@@ -275,7 +296,7 @@
                       <label class="col-form-label col-md-3 col-sm-3  label-align">Password<span
                           class="required">*</span></label>
                       <div class="col-md-6 col-sm-6">
-                        <input class="form-control" type="password" th:field="*{pass_User}"name="password" data-validate-length="6,8"
+                        <input class="form-control" type="password" th:field="*{password}"name="password" data-validate-length="6,8"
                           required='required' /></div>
                     </div>
                     <div class="field item form-group">
@@ -310,14 +331,6 @@
       </div>
       <!-- /page content -->
 
-      <!-- footer content -->
-      <footer>
-        <div class="pull-right">
-          Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-        </div>
-        <div class="clearfix"></div>
-      </footer>
-      <!-- /footer content -->
     </div>
   </div>
 

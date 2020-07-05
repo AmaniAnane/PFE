@@ -12,5 +12,6 @@ public class OutoevaluationApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OutoevaluationApplication .class, args);
 	}
+	
 
 }

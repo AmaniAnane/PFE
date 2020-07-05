@@ -1,5 +1,6 @@
 package com.example.demo.web;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dao.ChoixRespositor;
 import com.example.demo.dao.QuestionnaireRespository;
 import com.example.demo.dao.QuestionsRespository;
-import com.example.demo.dao.UserRespository;
+import com.example.demo.dao.UserRepository;
+//import com.example.demo.dao.UserRespository;
 import com.example.demo.entities.Questionnaire;
 import com.example.demo.entities.User;
 @Controller
@@ -27,7 +29,7 @@ public class UserQuestionnairesControlleur {
 	
 
 @Autowired
-private UserRespository UserRespository;
+private UserRepository UserRespository;
 
 @Autowired
 private QuestionsRespository  questionsRespository;
@@ -35,17 +37,16 @@ private QuestionsRespository  questionsRespository;
 private QuestionnaireRespository QuestionnaireRespository;
 	
 	 
-    @RequestMapping("/affUser")
-	public String affUser(Model model) {
-		List<User> User = (List<User>) UserRespository.findAll();
-		model.addAttribute("User", User);
-    	return "affUser";
-    }
+  
 
 
  
  @RequestMapping(value = "addUserQuestionnaire/{id}", method = RequestMethod.GET)
-    public String addQuestionnaire(@PathVariable("id") int UserId, Model model){
+    public String addQuestionnaire(@PathVariable("id") int UserId, Model model,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
     	model.addAttribute("Questionnaires", QuestionnaireRespository.findAll());
     
 		model.addAttribute("User", UserRespository.findById(UserId).get());
@@ -56,7 +57,11 @@ private QuestionnaireRespository QuestionnaireRespository;
  
  
  @RequestMapping(value ="ReponduUser/{id}", method = RequestMethod.GET)
- public String Repondu(@PathVariable("id") int UserId, Model model) {
+ public String Repondu(@PathVariable("id") int UserId, Model model,Principal principal)
+ {
+	 String name= principal.getName();
+	 User user=UserRespository.getUserByUsername(name);
+	 model.addAttribute("user",user);
 	 model.addAttribute("User", UserRespository.findById(UserId).get());
 	 
 	

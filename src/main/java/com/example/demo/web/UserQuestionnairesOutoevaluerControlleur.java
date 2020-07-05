@@ -1,5 +1,9 @@
 package com.example.demo.web;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,8 @@ import com.example.demo.dao.QuestionnaireRespository;
 import com.example.demo.dao.QuestionsRespository;
 import com.example.demo.dao.ReponseRespositor;
 import com.example.demo.dao.Singleton;
-import com.example.demo.dao.UserRespository;
+import com.example.demo.dao.UserRepository;
+//import com.example.demo.dao.UserRespository;
 import com.example.demo.entities.Choixreponse;
 import com.example.demo.entities.Questionnaire;
 import com.example.demo.entities.Questions;
@@ -29,7 +34,7 @@ public class UserQuestionnairesOutoevaluerControlleur {
 	private ChoixRespositor choixRespositor;
 	
 	@Autowired
-	private UserRespository UserRespository;
+	private UserRepository UserRespository;
 
 	@Autowired
 	private QuestionsRespository  questionsRespository;
@@ -40,8 +45,11 @@ public class UserQuestionnairesOutoevaluerControlleur {
 
 	
 	 @RequestMapping(value = "UserQuestionnaire/{id}", method = RequestMethod.GET)
-	    public String UserQuestionnaire(@PathVariable("id") int UserId, Model model){
-	    
+	    public String UserQuestionnaire(@PathVariable("id") int UserId, Model model,Principal principal)
+		 {
+			 String name= principal.getName();
+			 User user=UserRespository.getUserByUsername(name);
+			 model.addAttribute("user",user);
 		 
 		 Singleton.getInstance().setUser(UserRespository.findById(UserId).get());
 		 model.addAttribute("Questionnaires", UserRespository.findById(UserId).get().getQuestionnaires());
@@ -53,32 +61,42 @@ public class UserQuestionnairesOutoevaluerControlleur {
 	    }
 	 
 	 
+	
+	 
 	 
 	 @RequestMapping(value = { "/User/Questionnaire/" }, method = {RequestMethod.GET,RequestMethod.POST})
 
-	 public String Questionnaire(Model model, int n) {
+	 public String Questionnaire(Model model, int n, Principal principal) {
 		 model.addAttribute("Reponse",new Reponse() );
-		 User user= Singleton.getInstance().getUser();
-		 model.addAttribute( "User" ,UserRespository.findById(user.getId_User()).get());
+
+String name= principal.getName();
+User user=UserRespository.getUserByUsername(name);
+ model.addAttribute( "User" ,user);
 		 
 		// Singleton.getInstance().setUser(UserRespository.findById(id).get());
 		 Singleton.getInstance().setQuestionnaire(QuestionnaireRespository.findById(n).get());
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); 
+			 LocalDateTime now = LocalDateTime.now();  
+	  	   String date =dtf.format(now);
 		 model.addAttribute( "Questionnaire" ,QuestionnaireRespository.findById(n).get());
-
+		
 		 return "UserQuestionnaire";
 		 }
 	 
 	 
 	 @RequestMapping(value = { "/User/Questions/" }, method = {RequestMethod.GET,RequestMethod.POST})
 
-	 public String AddReponses(Model model, int n) {
+	 public String AddReponses(Model model, int n,Principal principal)
+	 {
+		 String name= principal.getName();
+		 User user=UserRespository.getUserByUsername(name);
+		 model.addAttribute("user",user);
 		 model.addAttribute("Reponse",new Reponse() );
 	
-		 User user= Singleton.getInstance().getUser();
 		 Questionnaire Questionnaire= Singleton.getInstance().getQuestionnaire();
 		 
 		 model.addAttribute( "Questions" ,questionsRespository.findById(n).get());
-		 model.addAttribute( "User" ,UserRespository.findById(user.getId_User()).get());
+model.addAttribute( "User" ,UserRespository.findById(user.getId_User()).get());
 		 model.addAttribute( "Questionnaire" ,QuestionnaireRespository.findById(Questionnaire.getId_questionnaire()).get());
 		 Singleton.getInstance().setQuestions(questionsRespository.findById(n).get());
 		 return "UserQuestions";
@@ -86,6 +104,8 @@ public class UserQuestionnairesOutoevaluerControlleur {
 	 
 	 
 
+	
+	 
 
 	 @RequestMapping(value = { "/User/Reponses/" }, method = RequestMethod.GET)
 	 public String saveReponseUser(@Valid @ModelAttribute Reponse Reponse, int ChoixreponseId,BindingResult bindingResult) {
@@ -95,6 +115,8 @@ public class UserQuestionnairesOutoevaluerControlleur {
 			 return "/User/Questions/?n="+m;
 			 }
 		
+			
+			
 			 Reponse.setUser(Singleton.getInstance().getUser());
 			 Reponse.setQuestionnaire(Singleton.getInstance().getQuestionnaire());
 			
@@ -111,24 +133,11 @@ public class UserQuestionnairesOutoevaluerControlleur {
 		     
 			 ReponseRespositor.save(Reponse);
 			 
+			 
 			
 			return "redirect:/User/Questionnaire/?n="+n;
 		 }
 	 
 	 
-	 //test
-	 @RequestMapping("/testtemplete/{id}")
-	 public String test(@PathVariable("id") int UserId, Model model){
-		   
-		 Singleton.getInstance().setUser(UserRespository.findById(UserId).get());
-		 model.addAttribute("Questionnaires", UserRespository.findById(UserId).get().getQuestionnaires());
-		
-			model.addAttribute("User", UserRespository.findById(UserId).get());
-		
-			
-		
-			 
-			 
-	    	return "form_wizards";
-	    }
+	 
 }

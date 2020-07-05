@@ -1,5 +1,6 @@
 package com.example.demo.web;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
+import com.example.demo.MyUserDetails;
+import com.example.demo.UserDetailsServiceImpl;
 import com.example.demo.dao.CategorieRespository;
 import com.example.demo.dao.ChoixRespositor;
 import com.example.demo.dao.FonctionRespository;
 import com.example.demo.dao.QuestionnaireRespository;
-import com.example.demo.dao.UserRespository;
+//import com.example.demo.dao.UserRespository;
 
 import com.example.demo.dao.TypeRespository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.dao.QuestionsRespository;
 import com.example.demo.dao.ReponseRespositor;
 import com.example.demo.dao.Singleton;
@@ -37,9 +39,7 @@ import com.example.demo.entities.Choixreponse;
 import com.example.demo.entities.Fonction;
 import com.example.demo.entities.Questionnaire;
 import com.example.demo.entities.User;
-
-
-
+import com.sun.security.auth.UserPrincipal;
 import com.example.demo.entities.Type;
 import com.example.demo.entities.Questions;
 import com.example.demo.entities.Reponse;
@@ -51,10 +51,11 @@ public class WebControlleur {
 @Autowired
 	private ChoixRespositor choixRespositor;
 	
-	
+
+
 
 @Autowired
-private UserRespository UserRespository;
+private UserRepository UserRespository;
 
 @Autowired
 private QuestionsRespository  questionsRespository;
@@ -71,7 +72,26 @@ public String deconnecter(Model model) {
 	 return "login";
 	 }
 
-	 
+
+@GetMapping("/")
+public String home(Model model, Principal principal)
+{
+String name= principal.getName();
+User user=UserRespository.getUserByUsername(name);
+model.addAttribute("user",user);
+model.addAttribute("Questionnaires", user.getQuestionnaires());
+
+	return "index";
+}
+
+
+@GetMapping("/index")
+public String userinterface(Model model)
+{
+	
+	return "done";
+}
+
 
 	 
 		 

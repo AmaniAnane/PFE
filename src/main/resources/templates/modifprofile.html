@@ -1,15 +1,3 @@
-
-  
-
-
-
- 
-
-<p><input type="submit" value="save"/> <input type="reset" value="Reset"></p>
-
-
-</form>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Autoevaluation </title>
+  <title></title>
 
   <!-- Bootstrap -->
   <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +24,7 @@
 <body class="nav-md">
   <div class="container body">
     <div class="main_container">
- <div class="col-md-3 left_col">
+     <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
      
 
@@ -125,8 +113,6 @@
         </div>
 
         <!-- top navigation -->
-       
-      <!-- top navigation -->
         <div class="top_nav">
             <div class="nav_menu">
                 <div class="nav toggle">
@@ -136,55 +122,42 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <span th:utext="${#request.userPrincipal.name}"></span>
-                       <small th:each="r:${user.roles}" th:utext="${r.name}"></small>
+                     ...
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                      
                      
                   
-                      <a class="dropdown-item"  href="/logout" ><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                   
+                      <a class="dropdown-item"  data-toggle="modal" data-target="#deconecter"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>
   
                   <li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      
-                        <i class="fa fa-bell"></i>
-                          
-                     
+                      <i class="fa fa-envelope-o"></i>
+                      <span class="badge bg-green">6</span>
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                        <span   >
-                        
-                            </span>
-                      <li class="nav-item" th:each="c:${Questionnaires}">
+                      <li class="nav-item">
                         <a class="dropdown-item">
                           <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        
-                        
-                          <span class="message">
-                            <a   th:href="@{/User/Questionnaire/(n=${c.id_questionnaire})}"th:text="${c.titre}"></a>
+                          <span>
+                            <span>John Smith</span>
+                            <span class="time">3 mins ago</span>
                           </span>
-                         
-                          
-                        
-                          
-                          
+                          <span class="message">
+                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
                         </a>
                       </li>
                   
                    
                     </ul>
                   </li>
-                  
                 </ul>
               </nav>
             </div>
           </div>
-      
-
       <!-- /top navigation -->
 
       <!-- page content -->
@@ -194,14 +167,7 @@
             <div class="title_left">
             </div>
 
-            <div class="title_right">
-                <div class="input-group">
-                  <span class="input-group-btn">
-                     <a class="btn btn-secondary" href="/Questions/lister" >Liste question</a>
-                  </span>
-                </div>
-              </div>
-            </div>
+           
           </div>
           <div class="clearfix"></div>
 
@@ -216,7 +182,7 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
                           class="fa fa-wrench"></i></a>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="Fonction/add">Add User</a>
+                        <a class="dropdown-item" href="/Fonction/add">Add fonctions</a>
                         
                       </div>
                     </li>
@@ -226,54 +192,115 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                  <form   method="POST"  th:action="@{/Choixreponse/save/{num}(num=${Questions.id_question})}"   th:object="${Choixreponse}"novalidate>
-                  
-                    <span class="section">Personal Info</span>
+                  <form th:action="@{/modifer/Profile}"   method="POST"  th:object="${User} "novalidate>
+                    <p>modifier Profile User</p>
                     
-    <div class="field item form-group">
-                <div class="col-md-6 col-sm-6">
-                 <select th:field="*{ch}" >
-                         <option th:each="q:${Questions}"
-                            th:value="${q.id_question}"   
-	
-		
-                            th:utext="${q.libelle}"/>
+                
+                    
+                    
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">ID<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                       <input readonly="readonly" type="text" th:field="*{id_User}"/> <span th:errors="*{id_User}"/> 
+                      </div>
+                      
+                       
+                   </div>
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Nom<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" th:field="*{nom_User}" data-validate-length-range="6" data-validate-words="0" name="name"
+                           required="required" /> 
+                      </div>
+                    </div>
+                    
+
+                       <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Prenom<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" th:field="*{prenom_User}" data-validate-length-range="6" data-validate-words="0" name="name"
+                           required="required" />
+                      </div>
+                    </div>
+                        <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Login<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" th:field="*{username}" data-validate-length-range="6" data-validate-words="0" name="name"
+                           required="required" />
+                      </div>
+                    </div>
+                     <div class="field item form-group">
+                                      
+                  <label class="col-form-label col-md-3 col-sm-3  label-align">Role<span
+                          class="required"></span></label>
+                 <div class="col-md-6 col-sm-6">
+                 <select name="id" >
+                         <option th:each="r:${User.roles}"
+                            th:value="${r.id}"
+                            th:utext="${r.name}"/>
                          </select>
                          </p>
                          </div>
- 
-      </div>              
-              <div class="field item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3  label-align">choix:<span
-                          class="required"/></label>
-                      <div class="col-md-6 col-sm-6">
-                        <textarea required="required" name='message'  th:field="*{choix}"></textarea></div>
-                    </div>
-
-                  
-               
-              
-    <div>
-  <input type="radio" Id="bonne_reponse" name="gender" value="VALIDE" th:field="*{bonne_reponse}"
-         checked>
-  <label for="huey">bonne_reponse</label>
-</div>
-
-    
-                      
-    <div>
-  <input type="radio" Id="FAUSSE_reponse" name="gender" value="NON_VALIDE" th:field="*{bonne_reponse}"
-         >
-  <label for="huey">FAUSSE_reponse</label>
-</div>
+                  </div>
+                  <div class="field item form-group">
+                  <label class="col-form-label col-md-3 col-sm-3  label-align">Fonction<span
+                          class="required"></span></label>
+                 <div class="col-md-6 col-sm-6">
+                 <select th:field="*{u.id_fonction}" >
+                         <option th:each="f:${Fonction}"
+                            th:value="${f.id_fonction}"
+                            th:utext="${f.libelle}"/>
+                         </select><span th:errors="*{u.id_fonction}"/>
+                         </p>
+                         </div>
+                         </div>
                 
-
-             
-                  
+                    
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">email<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" th:field="*{email_User}" name="email"  required="required" type="email" /></div>
+                    </div>
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Confirm email address<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" type="email"  name="confirm_email"
+                          data-validate-linked='email' required='required' /></div>
+                    </div>
+                   
+                   
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Password<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" type="password" th:field="*{password}"name="password" data-validate-length="6,8"
+                          required='required' /></div>
+                    </div>
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Repeat password<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" type="password" name="password2" data-validate-linked='password'
+                          required='required' /></div>
+                    </div>
+                    <div class="field item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3  label-align">Telephone<span
+                          class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6">
+                        <input class="form-control" th:field="*{telephon}" type="tel" name="phone" required='required'
+                          data-validate-length-range="8,20" /></div>
+                    </div>
+                    
                     <div class="ln_solid">
                       <div class="form-group">
                         <div class="col-md-6 offset-md-3">
-                    <button type='submit' class="btn btn-primary"  value="save">Submit</button>
+                    <button type='submit' class="btn btn-primary"  value="Update">Update</button>
                     <button type='reset' class="btn btn-success">Reset</button>
                         </div>
                       </div>
@@ -290,7 +317,7 @@
       <!-- footer content -->
       <footer>
         <div class="pull-right">
-          
+          Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
         </div>
         <div class="clearfix"></div>
       </footer>
