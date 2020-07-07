@@ -72,10 +72,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -118,11 +115,7 @@
         <version>1.6</version>
     </dependency>
 
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>3.4.0</version>
-		</dependency>
+	
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
@@ -131,6 +124,7 @@
 	</dependencies>
 
 	<build>
+	<defaultGoal>install</defaultGoal>
 	<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -142,6 +136,10 @@
     <artifactId>maven-checkstyle-plugin</artifactId>
     <version>2.17</version>
 </plugin>
+
+
+
+
 		</plugins>
 		
 		
