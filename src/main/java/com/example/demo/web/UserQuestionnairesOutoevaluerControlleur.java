@@ -67,11 +67,12 @@ public class UserQuestionnairesOutoevaluerControlleur {
 	 @RequestMapping(value = { "/User/Questionnaire/" }, method = {RequestMethod.GET,RequestMethod.POST})
 
 	 public String Questionnaire(Model model, int n, Principal principal) {
+		 
 		 model.addAttribute("Reponse",new Reponse() );
 
 String name= principal.getName();
 User user=UserRespository.getUserByUsername(name);
- model.addAttribute( "User" ,user);
+ model.addAttribute( "user" ,user);
 		 
 		// Singleton.getInstance().setUser(UserRespository.findById(id).get());
 		 Singleton.getInstance().setQuestionnaire(QuestionnaireRespository.findById(n).get());
