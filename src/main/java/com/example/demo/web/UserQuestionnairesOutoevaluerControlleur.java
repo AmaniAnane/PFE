@@ -80,7 +80,7 @@ User user=UserRespository.getUserByUsername(name);
 			 LocalDateTime now = LocalDateTime.now();  
 	  	   String date =dtf.format(now);
 		 model.addAttribute( "Questionnaire" ,QuestionnaireRespository.findById(n).get());
-		
+		 Singleton.getInstance().setUser(user);
 		 return "UserQuestionnaire";
 		 }
 	 
@@ -109,7 +109,7 @@ model.addAttribute( "User" ,UserRespository.findById(user.getId_User()).get());
 	 
 
 	 @RequestMapping(value = { "/User/Reponses/" }, method = RequestMethod.GET)
-	 public String saveReponseUser(@Valid @ModelAttribute Reponse Reponse, int ChoixreponseId,BindingResult bindingResult) {
+	 public String saveReponseUser(@Valid @ModelAttribute Reponse Reponse, int[] ChoixreponseId,BindingResult bindingResult) {
 			if (bindingResult.hasErrors()) {
 				Questions Questions=Singleton.getInstance().getQuestions();
 				int m=Questions.getId_question();
@@ -117,28 +117,32 @@ model.addAttribute( "User" ,UserRespository.findById(user.getId_User()).get());
 			 }
 		
 			
-			
+			for(int i=0; i<ChoixreponseId.length;i++)
+		    {
+				Choixreponse Choixreponses = choixRespositor.findById(ChoixreponseId[i]).get();
+				
 			 Reponse.setUser(Singleton.getInstance().getUser());
 			 Reponse.setQuestionnaire(Singleton.getInstance().getQuestionnaire());
-			
-			Choixreponse Choixreponses = choixRespositor.findById(ChoixreponseId).get();
-			
+			 Questions Questions=Choixreponses.getCh();
+		
 			 Reponse.getChoixreponse().add(Choixreponses);
-			 Questions Questions=Singleton.getInstance().getQuestions();
+			 
 			
 			 
 			 Reponse.setQuestions(Questions);
 			
 			
-			int n= Singleton.getInstance().getQuestionnaire().getId_questionnaire();
+		
 		     
 			 ReponseRespositor.save(Reponse);
 			 
 			 
 			
-			return "redirect:/User/Questionnaire/?n="+n;
 		 }
+			int n= Singleton.getInstance().getQuestionnaire().getId_questionnaire();
 	 
-	 
+
+			return "redirect:/User/Questionnaire/?n="+n;
 	 
 }
+	 }

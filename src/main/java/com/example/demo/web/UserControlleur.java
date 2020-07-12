@@ -112,9 +112,11 @@ public class UserControlleur {
 		 if(bindingResult.hasErrors()) {
 			 return "modifprofile";
 		 }
+		 
 	
 			Role r = RoleRespository.findById(id).get();
 			p.getRoles().add(r);
+			
 		    String encodedPassword = new BCryptPasswordEncoder().encode(p.getPassword());
 		    p.setPassword(encodedPassword);
 		 UserRespository.saveAndFlush(p);
@@ -126,12 +128,19 @@ public class UserControlleur {
 	 @RequestMapping("User/update")
 	 public String modifUser(Model model,int num,Principal principal)
 	 {
+		  ArrayList<Fonction> Fonction = (ArrayList<Fonction>) FonctionRespository.findAll();
+		  model.addAttribute("Fonction", Fonction);
+		 
 		 String name= principal.getName();
 		 User user=UserRespository.getUserByUsername(name);
 		 model.addAttribute("user",user);
-		 
+		 model.addAttribute("Role",RoleRespository.findAll());
 		 User p=UserRespository.findById(num).get();
 		 model.addAttribute("User",p);
+		 Fonction fonctionUser =p.getU();
+
+		 model.addAttribute("fonctionUser",fonctionUser);
+		 
 		 return "modifUser";
 	 }
 	

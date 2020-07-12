@@ -221,7 +221,7 @@
                     <p class="text-muted font-13 m-b-30">
                       liste des Questions 
                     </p>
-                          <form th:action="@{/Questionnaire/{id}/Questionss(id=${Questionnaire.id_questionnaire})}"  method="get" enctype="multipart/form-data" >    
+                          <form onsubmit="return checkForm(this);"  th:action="@{/Questionnaire/{id}/Questionss(id=${Questionnaire.id_questionnaire})}"  method="get" enctype="multipart/form-data" >    
                                <table  id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead>
                         <tr >
@@ -233,17 +233,17 @@
                           
                           
                           
-               <th >ajouter choix <a th:each="q:${Questions}" th:href="@{/Questions/choixReponse/(num=${q.id_question})}" >. </a>
+               <th >ajouter choix <a th:each="q:${Questions}"  th:href="@{/Questions/choixReponse/(num=${q.id_question})}" >. </a>
 		             </th>
                  
                         </tr>
                       </thead>
 
 
-                      <tbody>
+                      <tbody >
                       
                      <tr th:each="q:${question}">
-                     <td><input class="form-control" type="radio" name="QuestionsId" th:value="${q.id_question}"/></td>
+                     <td><input class="form-control" required type="checkbox"  name="QuestionsId" th:value="${q.id_question}" /> </td>
 	                  <td th:text="${q.id_question}"/>
 	                   <td th:text="${q.libelle}"/>
 	                   <td th:text="${q.c}"/>

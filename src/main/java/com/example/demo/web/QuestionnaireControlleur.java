@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,6 +39,7 @@ private QuestionnaireRespository QuestionnaireRespository;
 private CategorieRespository CategorieRespository; 
 @Autowired
  private UserRepository UserRespository;
+
 	 @RequestMapping("/Questionnaire")
 		public String index(Model model ,Principal principal)
 		 {
@@ -86,31 +88,53 @@ private CategorieRespository CategorieRespository;
 			 model.addAttribute("user",user);
 	    	Questionnaire q=QuestionnaireRespository.findById(questionnaireId).get();
 			model.addAttribute("Questionnaire", q);
-			model.addAttribute("question",questionsRespository.findAll());
+		 model.addAttribute("QuestionsAll",questionsRespository.findAll());
+		 
+		List<Questions> listeQuestions=new ArrayList();
+			for (Questions question:questionsRespository.findAll() )
+			{	
+				
+				
+				if (!q.hasQuestions(question))
+				{
+					listeQuestions.add(question);
+					
+				}	
+			}
+			model.addAttribute("question",listeQuestions);
 			return "addQuestionnaireQuestions";
 	    }
 	    
 	 //QuestionnaireQuestions
 	 
-		
-	    
+	
+	//   
 	    @RequestMapping(value="/Questionnaire/{id}/Questionss", method=RequestMethod.GET)
-		public String QuestionnairesAddQuestions(@PathVariable int id, @RequestParam int QuestionsId, Model model) {
-	    	Questions Questions = questionsRespository.findById(QuestionsId).get();
+		public String QuestionnairesAddQuestions(@PathVariable int id, @RequestParam int[] QuestionsId, Model model) {
+	    
 			Questionnaire Questionnaire = QuestionnaireRespository.findById(id).get();
 
 			if (Questionnaire != null) {
-				if (!Questionnaire.hasQuestions(Questions)) {
-					Questionnaire.getQuestionss().add(Questions);
+				
+				for(int i=0; i<QuestionsId.length;i++)
+			    {
+			    	Questions Questions = questionsRespository.findById(QuestionsId[i]).get();
+					if (!Questionnaire.hasQuestions(Questions)) 
+					{
+						Questionnaire.getQuestionss().add(Questions);
+						QuestionnaireRespository.save(Questionnaire);
+					}	
 				}
-				QuestionnaireRespository.save(Questionnaire);
+				
 				model.addAttribute("Questionnaire", QuestionnaireRespository.findById(id));
 				model.addAttribute("Questionss", questionsRespository.findAll());
-				return "redirect:/Questionnaire";
-			}
+				return "redirect:/addQuestionnaireQuestions/{id}";
+			}	
 
-			return "redirect:/Questionnaire";
-		}    
+			
+		
+	    return "redirect:/addQuestionnaireQuestions/{id}";
+	    }
 	    
 	    @RequestMapping(value = "getQuestionnaire", method = RequestMethod.GET)
 	    public @ResponseBody List<Questionnaire> getQuestionnaire() {

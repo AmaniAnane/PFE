@@ -182,6 +182,9 @@
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
     
+
+                    
+                     <form th:action="@{/User/Reponses/}" th:object="${Reponse}" method="GET" enctype="multipart/form-data" >
                     <table  id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
@@ -189,7 +192,7 @@
                         	 <th>#</th>
                         	
                         	 <th> liste des question</th>
-                        	 <th>Reponder</th>
+                        	 
                         	
                         </tr>
                       </thead>
@@ -201,14 +204,53 @@
 	   <td  th:text="${Questions.id_question}"  name="QuestionnaireId" th:value="${Questionnaire.id_questionnaire}"/>
 	  
 	                  
-	   <td th:text="${Questions.libelle}">
+	   <td>
+	   
+
+	            <table class="table table-striped jambo_table bulk_action">
+	        <thead>
+                          <tr class="headings">
+                            <th>
+                             
+                            </th>
+                            <th class="column-title" th:text="${Questions.libelle}"> </th>
+                       
+                           
+                            <th class="bulk-actions" colspan="7">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
+                              <tbody>
+                          <tr class="even pointer" th:each="Choixreponse :${Questions.Choixreponse}">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="ChoixreponseId" th:value="${Choixreponse.id_choix}" >
+                            </td>
+                            <td class=" " th:text="${Choixreponse.choix}"/>
+                            
+                          </tr>
+                       
+                        </tbody>
+                        </table>
+
+	  
+	    
+	    
+	  
+	              
+
+               </td>   
+           
+	   
+	   
+
+	          
+                       
+
 	
-            </td>
              
-		<td class="text-center">
-		<a  class='btn btn-info btn-xs' th:href="@{/User/Questions/(n=${Questions.id_question})}"th:text="REPONDER"><span class="glyphicon glyphicon-edit"></span>REPONDER</a>
-    	</td>
-                  
+	
+             
            
     	        
                 	
@@ -216,7 +258,8 @@
 
                       </tbody>
                     </table>
-                    
+                      <input type="submit"  onclick="alert('réponse bien envoyer passé a lautre question');this.onclick=function(){};" class="btn btn-success" value="envoiyer"/>
+                    </form>
                   </div>
                   </div>
               </div>

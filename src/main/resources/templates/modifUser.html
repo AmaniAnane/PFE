@@ -226,7 +226,7 @@
                     
                     
                 
-                    <span class="section">Modiffer <sapan th:text="${User.username}" /></span>
+                    <span class="section"> <sapan th:text="${User.username}" /></span>
                     
                     
                     <div class="field item form-group">
@@ -271,10 +271,25 @@
                          <option th:each="f:${Fonction}"
                             th:value="${f.id_fonction}"
                             th:utext="${f.libelle}"/>
-                         </select><span th:errors="*{u.id_fonction}"/>
-                         </p>
+                            <option selected 
+                            th:value="${fonctionUser.id_fonction}"
+                            th:utext="${fonctionUser.libelle}"/>
+                         </select>
                          </div>
                          </div>
+                                   <div class="field item form-group">
+                  <label class="col-form-label col-md-3 col-sm-3  label-align">Role<span
+                          class="required"></span></label>
+                 <div class="col-md-6 col-sm-6">
+                 <select name="id" >
+                         <option th:each="r:${Role}"
+                            th:value="${r.id}"
+                            th:utext="${r.name}"/>
+                             
+                         </select>
+                       
+                         </div>
+                         </div>      
                 
                   
                     <div class="field item form-group">
@@ -313,6 +328,7 @@
                         <input class="form-control" th:field="*{telephon}" type="tel" name="phone" required='required'
                           data-validate-length-range="8,20" /></div>
                     </div>
+                    
                     
                     <div class="ln_solid">
                       <div class="form-group">
