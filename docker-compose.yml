@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   jenkins:
     image: jenkins/jenkins:lts
@@ -13,7 +12,6 @@ services:
       - ~/jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/local/bin/docker
-
   mysql:
     # Use mysql:8.0.19 image
     image: mysql:8.0.19
@@ -29,9 +27,7 @@ services:
       MYSQL_PASSWORD: "root"
       MYSQL_DATABASE: BDOutoevaluation
     volumes:
-      - dbdata:/var/lib/mysql-pfe
-
-      
+      - dbdata:/var/lib/mysql-pfe     
   phpmyadmin:
     # Use phpmyadmin/phpmyadmin:5.0.2 image
     image: phpmyadmin/phpmyadmin:5.0.2
