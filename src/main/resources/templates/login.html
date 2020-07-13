@@ -11,7 +11,7 @@
 	<div layout:fragment="content">
 		<div class="panel col-md-5">
 			<div class="panel panel-primary">
-				<div class="panel-heading">Login Form</div>
+				<div class="panel-heading">Authentification</div>
 				<div class="panel-body">
 
 					<form action="home" th:action="@{/login}" method="post">
@@ -27,7 +27,7 @@
 						</div>
 						<div class="form-group">
 							<label>
-						      <input type="checkbox" name="remember-me"> Remember Me
+						      <input type="checkbox" name="remember-me"> Enregistrer
 						    </label>
 						</div>
 						<div class="row">
@@ -42,16 +42,18 @@
 									class="alert alert-danger alert-dismissable">
 									<p>
 										<i class="icon fa fa-ban"></i> <span
-											th:text="#{error.login_failed}">Invalid Email and
-											Password.</span>
+											th:text="#{error.login_failed}">
+											Email ou Mot de passe non valide
+											</span>
 									</p>
 								</div>
 								<div th:if="${param.logout}"
 									class="alert alert-info alert-dismissable">
 									<p>
 										<i class="icon fa fa-info"></i> <span
-											th:text="#{info.logout_success}">You have been logged
-											out.</span>
+											th:text="#{info.logout_success}">
+											You have been logged out.
+											</span>
 									</p>
 								</div>
 								
